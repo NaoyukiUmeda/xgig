@@ -1,52 +1,55 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Page top button functionality
-    const pageTopBtn = document.querySelector('.page-top');
+    const topBtn = document.querySelector('.top-btn');
     
-    if (pageTopBtn) {
+    if (topBtn) {
         // Show/hide page top button on scroll
         window.addEventListener('scroll', function() {
             if (window.scrollY > 300) {
-                pageTopBtn.classList.add('visible');
+                topBtn.classList.add('visible');
             } else {
-                pageTopBtn.classList.remove('visible');
+                topBtn.classList.remove('visible');
             }
         });
 
         // Scroll to top on click
-        pageTopBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        const topBtnLink = topBtn.querySelector('a');
+        if (topBtnLink) {
+            topBtnLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
-        });
+        }
     }
 
     // Mobile menu toggle
     const spMenu = document.querySelector('.sp-menu');
-    const spNav = document.querySelector('.sp-nav');
+    const menuSpList = document.querySelector('.menu-sp-list');
     
-    if (spMenu && spNav) {
+    if (spMenu && menuSpList) {
         spMenu.addEventListener('click', function(e) {
             e.preventDefault();
             this.classList.toggle('active');
-            spNav.classList.toggle('active');
+            menuSpList.classList.toggle('active');
         });
 
         // Close menu when clicking on a link
-        const spNavLinks = spNav.querySelectorAll('a');
-        spNavLinks.forEach(link => {
+        const menuLinks = menuSpList.querySelectorAll('a');
+        menuLinks.forEach(link => {
             link.addEventListener('click', function() {
                 spMenu.classList.remove('active');
-                spNav.classList.remove('active');
+                menuSpList.classList.remove('active');
             });
         });
 
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
-            if (!spMenu.contains(e.target) && !spNav.contains(e.target)) {
+            if (!spMenu.contains(e.target) && !menuSpList.contains(e.target)) {
                 spMenu.classList.remove('active');
-                spNav.classList.remove('active');
+                menuSpList.classList.remove('active');
             }
         });
     }
@@ -58,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Ignore javascript:void(0) and empty hash
             if (href === '#' || href === 'javascript:void(0)' || href === '#!') {
+                e.preventDefault();
                 return;
             }
             
@@ -95,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial check for elements already in viewport
     checkFadeIn();
 
-    // Check on scroll
+    // Check on scroll with throttle
     let scrollTimer;
     window.addEventListener('scroll', function() {
         if (scrollTimer) {
@@ -103,20 +107,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         scrollTimer = setTimeout(checkFadeIn, 50);
     });
-
-    // Parallax effect for hero section (optional enhancement)
-    const heroSection = document.querySelector('.hero-section');
-    if (heroSection) {
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const heroHeight = heroSection.offsetHeight;
-            
-            if (scrolled < heroHeight) {
-                const heroBg = heroSection.querySelector('.hero-bg img');
-                if (heroBg) {
-                    heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
-                }
-            }
-        });
-    }
 });

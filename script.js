@@ -1,17 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Page top button
-    const topBtn = document.querySelector('.top-btn');
+    // Page top button functionality
+    const pageTopBtn = document.querySelector('.page-top');
     
-    if (topBtn) {
+    if (pageTopBtn) {
+        // Show/hide page top button on scroll
         window.addEventListener('scroll', function() {
             if (window.scrollY > 300) {
-                topBtn.classList.add('visible');
+                pageTopBtn.classList.add('visible');
             } else {
-                topBtn.classList.remove('visible');
+                pageTopBtn.classList.remove('visible');
             }
         });
 
-        topBtn.addEventListener('click', function(e) {
+        // Scroll to top on click
+        pageTopBtn.addEventListener('click', function(e) {
             e.preventDefault();
             window.scrollTo({
                 top: 0,
@@ -22,22 +24,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mobile menu toggle
     const spMenu = document.querySelector('.sp-menu');
-    const menuSpList = document.querySelector('.menu-sp-list');
+    const spNav = document.querySelector('.sp-nav');
     
-    if (spMenu && menuSpList) {
+    if (spMenu && spNav) {
         spMenu.addEventListener('click', function(e) {
             e.preventDefault();
             this.classList.toggle('active');
-            menuSpList.classList.toggle('active');
+            spNav.classList.toggle('active');
         });
 
         // Close menu when clicking on a link
-        const menuLinks = menuSpList.querySelectorAll('a');
-        menuLinks.forEach(link => {
+        const spNavLinks = spNav.querySelectorAll('a');
+        spNavLinks.forEach(link => {
             link.addEventListener('click', function() {
                 spMenu.classList.remove('active');
-                menuSpList.classList.remove('active');
+                spNav.classList.remove('active');
             });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!spMenu.contains(e.target) && !spNav.contains(e.target)) {
+                spMenu.classList.remove('active');
+                spNav.classList.remove('active');
+            }
         });
     }
 
@@ -45,16 +55,19 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            if (href === '#' || href === 'javascript:void(0)') {
+            
+            // Ignore javascript:void(0) and empty hash
+            if (href === '#' || href === 'javascript:void(0)' || href === '#!') {
                 return;
             }
             
             e.preventDefault();
             const target = document.querySelector(href);
+            
             if (target) {
-                const headerOffset = 70;
+                const headerHeight = 62;
                 const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
 
                 window.scrollTo({
                     top: offsetPosition,
@@ -64,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Scroll animations
+    // Fade-in animation on scroll
     const fadeElements = document.querySelectorAll('.fadein');
     
     const checkFadeIn = () => {
@@ -72,15 +85,38 @@ document.addEventListener('DOMContentLoaded', function() {
             const rect = element.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            if (rect.top < windowHeight * 0.85) {
+            // Trigger animation when element is 80% visible in viewport
+            if (rect.top < windowHeight * 0.8) {
                 element.classList.add('scrollin');
             }
         });
     };
 
-    // Initial check
+    // Initial check for elements already in viewport
     checkFadeIn();
 
     // Check on scroll
-    window.addEventListener('scroll', checkFadeIn);
+    let scrollTimer;
+    window.addEventListener('scroll', function() {
+        if (scrollTimer) {
+            clearTimeout(scrollTimer);
+        }
+        scrollTimer = setTimeout(checkFadeIn, 50);
+    });
+
+    // Parallax effect for hero section (optional enhancement)
+    const heroSection = document.querySelector('.hero-section');
+    if (heroSection) {
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const heroHeight = heroSection.offsetHeight;
+            
+            if (scrolled < heroHeight) {
+                const heroBg = heroSection.querySelector('.hero-bg img');
+                if (heroBg) {
+                    heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            }
+        });
+    }
 });

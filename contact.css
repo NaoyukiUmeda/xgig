@@ -1,232 +1,284 @@
-.contact-page {
-    margin-top: 70px;
-    padding: 80px 20px;
-    min-height: calc(100vh - 70px);
-    background: linear-gradient(135deg, 
-        rgba(65, 105, 225, 0.05) 0%, 
-        rgba(147, 112, 219, 0.05) 50%,
-        rgba(255, 20, 147, 0.05) 100%);
+/* Contact Form Styles - Based on xgig.jp/contact/ */
+
+body#form {
+    background: #fff;
 }
 
-.contact-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Form Container */
+.form-box {
+    padding: 120px 40px 80px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-box .inner {
+    width: 100%;
+}
+
+/* Title */
+.form-box .title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.form-box .title .en {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.form-box .title .en img {
+    max-width: 300px;
+    height: auto;
+}
+
+.form-box .title .ja {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Intro Text */
+.input_txt,
+.conf_txt {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #666;
     margin-bottom: 40px;
 }
 
-.contact-header svg {
-    color: var(--primary-purple);
-    margin-bottom: 20px;
+.conf_txt {
+    display: none;
 }
 
-.contact-header h1 {
-    font-size: 48px;
-    font-weight: bold;
-    text-align: center;
-    color: var(--text-dark);
+/* Form Body */
+.form_body {
+    margin-bottom: 40px;
 }
 
-.contact-header h1 span {
-    display: block;
-    font-size: 16px;
-    font-weight: normal;
-    color: var(--text-light);
-    margin-top: 10px;
-}
-
-.contact-intro {
-    text-align: center;
-    font-size: 16px;
-    color: var(--text-light);
-    margin-bottom: 50px;
-}
-
-.contact-form {
-    max-width: 800px;
-    margin: 0 auto;
-    background: white;
-    padding: 50px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
+/* Form Items */
+.form-item {
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
-.form-group.required label::after {
-    content: " *";
-    color: var(--primary-red);
-    font-weight: bold;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
+.form-item dt {
     margin-bottom: 10px;
-    color: var(--text-dark);
-    font-size: 14px;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 5px;
+.form-item label {
     font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    display: inline-block;
+}
+
+.form-item label::after {
+    content: "必須";
+    display: inline-block;
+    background: #dc143c;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 8px;
+    margin-left: 10px;
+    border-radius: 3px;
+    font-weight: 700;
+}
+
+.form-item:has(#f-tel) label::after {
+    content: "任意";
+    background: #999;
+}
+
+.form-item dd {
+    width: 100%;
+}
+
+/* Input Fields */
+.input,
+.textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    transition: all 0.3s ease;
     font-family: inherit;
-    transition: border-color 0.3s;
 }
 
-.form-group input[type="text"]:focus,
-.form-group input[type="email"]:focus,
-.form-group input[type="tel"]:focus,
-.form-group textarea:focus {
+.input:focus,
+.textarea:focus {
     outline: none;
-    border-color: var(--primary-purple);
+    border-color: #4169E1;
+    box-shadow: 0 0 0 3px rgba(65, 105, 225, 0.1);
 }
 
-.form-group textarea {
+.textarea {
     resize: vertical;
     min-height: 150px;
 }
 
-.checkbox-group {
-    margin: 40px 0;
+/* Placeholder */
+.input::placeholder,
+.textarea::placeholder {
+    color: #999;
 }
 
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    font-weight: normal;
-}
-
-.checkbox-label input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-
-.checkbox-label span {
-    color: var(--text-dark);
-}
-
-.checkbox-label a {
-    color: var(--primary-blue);
-    text-decoration: underline;
-}
-
-.checkbox-label a:hover {
-    color: var(--primary-purple);
-}
-
-.form-actions {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 40px;
-}
-
-.btn-primary,
-.btn-secondary {
-    padding: 15px 50px;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
-    color: white;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(65, 105, 225, 0.3);
-}
-
-.btn-secondary {
-    background: white;
-    color: var(--text-dark);
-    border: 2px solid #e0e0e0;
-}
-
-.btn-secondary:hover {
-    border-color: var(--primary-purple);
-    color: var(--primary-purple);
-}
-
-.contact-alternative {
-    max-width: 800px;
-    margin: 50px auto 0;
+/* Privacy Policy Agreement */
+.kiyaku {
     text-align: center;
-}
-
-.contact-alternative p {
-    font-size: 16px;
-    color: var(--text-light);
-    margin-bottom: 20px;
-}
-
-.line-btn-large {
-    display: inline-flex;
+    margin-bottom: 40px;
+    display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 15px 40px;
-    background: #00B900;
-    color: white;
+    justify-content: center;
+    gap: 10px;
+}
+
+.kiyaku .chk-box {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.kiyaku label {
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.kiyaku label a {
+    color: #4169E1;
     text-decoration: none;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 16px;
-    transition: all 0.3s;
+    border-bottom: 1px solid #4169E1;
 }
 
-.line-btn-large:hover {
+.kiyaku label a:hover {
+    color: #9370DB;
+    border-bottom-color: #9370DB;
+}
+
+/* Submit Button */
+.btn_area {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.btn_contact {
+    display: inline-block;
+    padding: 18px 80px;
+    background: #0000FF;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn_contact:hover {
+    background: #0000CC;
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 185, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 255, 0.3);
 }
 
-.line-btn-large svg {
-    color: white;
+/* Page Top Button */
+.top-btn {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
 }
 
-/* モバイル対応 */
+.top-btn.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.top-btn a {
+    display: block;
+    width: 60px;
+    height: 60px;
+}
+
+.top-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .contact-page {
-        padding: 40px 20px;
+    .form-box {
+        padding: 100px 20px 60px;
     }
-
-    .contact-header h1 {
-        font-size: 36px;
+    
+    .form-box .title {
+        margin-bottom: 40px;
     }
-
-    .contact-form {
-        padding: 30px 20px;
+    
+    .form-box .title .en img {
+        max-width: 200px;
     }
-
-    .form-actions {
+    
+    .form-box .title .ja {
+        font-size: 20px;
+    }
+    
+    .input_txt,
+    .conf_txt {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    
+    .form-item {
+        margin-bottom: 25px;
+    }
+    
+    .form-item label {
+        font-size: 14px;
+    }
+    
+    .input,
+    .textarea {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    .textarea {
+        min-height: 120px;
+    }
+    
+    .kiyaku {
         flex-direction: column;
-        gap: 15px;
+        gap: 8px;
     }
-
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-        padding: 15px 30px;
+    
+    .kiyaku label {
+        font-size: 13px;
     }
-
-    .line-btn-large {
-        width: 100%;
-        justify-content: center;
+    
+    .btn_contact {
+        padding: 15px 60px;
+        font-size: 16px;
+    }
+    
+    .top-btn {
+        right: 20px;
+        bottom: 20px;
+    }
+    
+    .top-btn a {
+        width: 50px;
+        height: 50px;
     }
 }
